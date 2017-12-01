@@ -28,4 +28,4 @@ part1_compared = Day1.shift(data, 1)
 IO.puts("Part 1: #{Day1.compute(data, part1_compared)}")
 
 part2_compared = Day1.shift(data, div(length(data),  2))
-IO.puts("Part 1: #{Day1.compute(data, part2_compared)}")
+IO.puts("Part 2: #{Day1.compute(data, part2_compared)}")
