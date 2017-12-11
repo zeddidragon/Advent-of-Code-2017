@@ -4,26 +4,18 @@ data = "input-11"
   |> String.split(",")
 
 defmodule Day11 do
-  def step({x, y}, "n") do
-    {x, y - 1}
-  end
-  def step({x, y}, "ne") do
-    {x + 1, y}
-  end
-  def step({x, y}, "se") do
-    {x + 1, y + 1}
-  end
-  def step({x, y}, "s") do
-    {x, y + 1}
-  end
-  def step({x, y}, "sw") do
-    {x - 1, y}
-  end
-  def step({x, y}, "nw") do
-    {x - 1, y - 1}
+  def step({x, y}, dir) do
+    case dir do
+      "n"  -> {x, y - 1}
+      "ne" -> {x + 1, y}
+      "se" -> {x + 1, y + 1}
+      "s"  -> {x, y + 1}
+      "sw" -> {x - 1, y}
+      "nw" -> {x - 1, y - 1}
+    end
   end
 
-  def distance({x, y}) when x >= 0 and y >= 0 or x <= 0 and y <= 0 do
+  def distance({x, y}) when (abs(x) == x) == (abs(y) == y) do
     [x, y] |> Enum.max |> abs
   end
   def distance({x, y}) do
