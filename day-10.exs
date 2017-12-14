@@ -1,4 +1,5 @@
 require Bitwise
+IO.puts("=== Day 10 ===")
 
 data = "input-10"
   |> File.read!
@@ -7,8 +8,16 @@ data = "input-10"
 list = Enum.to_list(0..255)
 
 defmodule Day10 do
+  def add_pepper(list) do
+    list ++ [17, 31, 73, 47, 23]
+  end
+
   def repeat(list, n) do
     Enum.reduce(1..n, [], fn _, acc -> acc ++ list end)
+  end
+
+  def prepare_input(list) do
+    list |> add_pepper |> repeat(64)
   end
 
   def rotate(list, n) do
@@ -42,11 +51,9 @@ part1_sizes = data
 [a, b | _] = Day10.scramble(list, part1_sizes)
 IO.puts("Part 1: #{a * b}")
 
-pepper = [17, 31, 73, 47, 23]
 part2_sizes = data
   |> String.to_charlist
-  |> Kernel.++(pepper)
-  |> Day10.repeat(64)
+  |> Day10.prepare_input
 
 hash = list
   |> Day10.scramble(part2_sizes)

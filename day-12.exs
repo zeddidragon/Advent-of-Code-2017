@@ -1,3 +1,5 @@
+IO.puts("=== Day 12 ===")
+
 defmodule Day12 do
   def row_to_tuple(row) do
     [key | values] = row
@@ -10,7 +12,7 @@ defmodule Day12 do
     if MapSet.member?(set, key) do
       set
     else
-      Enum.reduce(Map.get(map, key), MapSet.put(set, key), fn k, set ->
+      Enum.reduce(Map.get(map, key, []), MapSet.put(set, key), fn k, set ->
         MapSet.union(set, members(map, k, set))
       end)
     end
