@@ -5,10 +5,8 @@ defmodule Day19 do
       |> Enum.filter(fn {_, char} -> char !== ?\s end)
   end
 
-  def left({0, y}), do: {y, 0}
-  def left({x, 0}), do: {0, -x}
-  def right({0, y}), do: {-y, 0}
-  def right({x, 0}), do: {0, x}
+  def left({x, y}), do: {y, -x}
+  def right({x, y}), do: {-y, x}
 
   def add({ax, ay}, {bx, by}) do
     {ax + bx, ay + by}
