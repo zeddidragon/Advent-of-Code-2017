@@ -48,7 +48,6 @@ data = "input-19"
 {x, 0} = data
   |> Map.keys
   |> Enum.find(fn {_, y} -> y == 0 end)
-  |> IO.inspect
 
 path = Day19.follow(data, {x, -1}, {0, 1})
 letters = path
