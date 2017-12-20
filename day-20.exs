@@ -23,12 +23,6 @@ defmodule Particle do
       |> Enum.reduce(&Kernel.+/2)
   end
 
-  def vector_diff(a, b) do
-    a
-      |> Enum.zip(b)
-      |> Enum.map(fn {a, b} -> a - b end)
-  end
-
   def vector_sum(a, b) do
     [a, b]
       |> Enum.zip
