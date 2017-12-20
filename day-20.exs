@@ -24,8 +24,8 @@ defmodule Particle do
   end
 
   def vector_diff(a, b) do
-    [a, b]
-      |> Enum.zip
+    a
+      |> Enum.zip(b)
       |> Enum.map(fn {a, b} -> a - b end)
   end
 
@@ -60,26 +60,18 @@ defmodule Particle do
     %{particle | pos: pos, vel: vel}
   end
 
-  def collision_time(a, b, time \\ 0, previous \\ :infinity) do
-    distance = a.pos
-      |> vector_diff(b.pos)
-      |> vector_length
-    # Infinite loop if distance stays constant!
-    # Input didn't contain this case, fortunately
-    cond do
-      distance == 0 -> time
-      distance > previous -> nil
-      true -> collision_time(move(a), move(b), time + 1, distance)
-    end
-  end
-
-  def collide([]), do: []
-  def collide([p | ps]) do
-    collisions = Enum.reduce(ps, [], fn p2, acc ->
-      time = collision_time(p, p2)
-      if time do [{p.id, p2.id, time} | acc] else acc end
-    end)
-    Enum.concat(collide(ps), collisions)
+  def simulate(particles, 0), do: particles
+  def simulate(particles, step) do
+    removed = particles
+      |> Enum.group_by(&Map.get(&1, :pos))
+      |> Map.values
+      |> Enum.filter(fn group -> length(group) > 1 end)
+      |> List.flatten
+      |> MapSet.new
+    particles
+      |> Enum.reject(&MapSet.member?(removed, &1))
+      |> Enum.map(&move/1)
+      |> simulate(step - 1)
   end
 end
 
@@ -96,5 +88,7 @@ slowest = data
 IO.puts("Part 1: #{slowest.id}")
 
 remaining = data
-  |> Particle.collide
-  |> IO.inspect
+  |> Particle.simulate(100)
+  |> Enum.sort_by(&Map.get(&1, :id))
+
+IO.puts("Part 2: #{length(remaining)}")
