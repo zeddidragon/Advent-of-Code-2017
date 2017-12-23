@@ -65,7 +65,7 @@ int main() {
     }
 
     b += 17; // 31            : sub b -17
-  } while(1) // 32            : jnz 1 -23
+  } while(1); // 32            : jnz 1 -23
   
   printf("%d", h);
   return 0;
