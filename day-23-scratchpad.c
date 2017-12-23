@@ -20,52 +20,52 @@ int g = 0;
 int h = 0;
 
 int main() {
-  b = 65; // 1
-  c = b; // 2
+  b = 65; // 1                : set b 65
+  c = b; // 2                 : set c b
 
-  if(a) { // 3, 4
-    b *= 100; // 5
-    b += 100000; // 6
-    c = b; // 7
-    c += 17000; // 8
+  if(a) { // 3, 4             : jnz a 2; jnz 1 5
+    b *= 100; // 5            : mul b 100
+    b += 100000; // 6         : sub b -100000
+    c = b; // 7               : set c b
+    c += 17000; // 8          : sub c -17000
   }
 
-  while(1) {// 32
-    f = 1; // 9
+  do {
+    f = 1; // 9               : set f 1
 
     do {
-      d = 2; // 10
-      e = 2; // 11
+      d = 2; // 10            : set d 2
+      e = 2; // 11            : set e 2
 
       do {
-        g = d; // 12
-        g *= e; // 13
-        g -= b; // 14
-        if(!g) { // 15
-          f = 0; // 16
+        g = d; // 12          : set g d
+        g *= e; // 13         : mul g e
+        g -= b; // 14         : sub g b
+        if(!g) { // 15        : jnz g 2
+          f = 0; // 16        : set f 0
         }
-        e += 1; // 17
-        g = e; // 18
-        g -= b; // 19
+        e += 1; // 17         : sub e -1
+        g = e; // 18          : set g e
+        g -= b; // 19         : sub g b
       } while(g); // 20
 
-      d += 1; // 21
-      g = d; // 22
-      g -= b; // 23
-    } while(g); // 24
+      d += 1; // 21           : sub d -1
+      g = d; // 22            : set g d
+      g -= b; // 23           : sub g b
+    } while(g); // 24         : jnz g -13
 
-    if(!f) { // 25
-      h += 1; // 26
+    if(!f) { // 25            : jnz f 2
+      h += 1; // 26           : sub h -1
     }
 
-    g = b; // 27
-    g -= c; // 28
-    if(!g) { // 29
-      break; // 30
+    g = b; // 27              : set g b
+    g -= c; // 28             : sub g c
+    if(!g) { // 29            : jnz g 2
+      break; // 30            : jnz 1 3
     }
 
-    b += 17; // 31
-  }
+    b += 17; // 31            : sub b -17
+  } while(1) // 32            : jnz 1 -23
   
   printf("%d", h);
   return 0;
